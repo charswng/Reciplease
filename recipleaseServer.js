@@ -28,18 +28,15 @@ app.use(bparser.urlencoded({extended:false}));
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 
-// Routes
 app.get('/', (req, res) => {
-    res.render("index");
-});
-
-app.post('/', (req, res) => {
-    formName = req.body.name; 
-    insertUser({name : formName})
-    .then(res.render("reciplease"));
+    res.render('reciplease');
 });
 
 app.post('/recipes', async (req, res) => {
+
+    formName = req.body.name; 
+    insertUser({name : formName})
+
     const { ingredients } = req.body;
 
     if (!ingredients) {
@@ -65,10 +62,10 @@ app.post('/recipes', async (req, res) => {
             ingredients: recipe.usedIngredients.map(ing => ing.name)
         }));
 
-        res.render('index', { recipes, error: null });
+        res.render('reciplease', { recipes, error: null });
     } catch (error) {
         console.error(error);
-        res.render('index', { error: 'Failed to fetch recipes. Please try again.', recipes: [] });
+        res.render('reciplease', { error: 'Failed to fetch recipes. Please try again.', recipes: [] });
     }
 });
 

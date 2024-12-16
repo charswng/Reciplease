@@ -55,15 +55,33 @@ app.post('/reciplease', async (req, res) => {
             }
         });
 
-        
-
         const recipes = response.data.map(recipe => ({
             name: recipe.title,
-            description: recipe.title, // Spoonacular doesn't provide descriptions here
+            id: recipe.id,
+            image: recipe.image,
             ingredients: recipe.usedIngredients.map(ing => ing.name)
         }));
 
-        res.render('reciplease', { recipes, error: null });
+        const recipesWithDetails = await Promise.all(
+            recipes.map(async (recipe) => {
+                try {
+                    const recipeInfo = await axios.get(`https://api.spoonacular.com/recipes/${recipe.id}/information`, {
+                        params: { includeNutrition: false, apiKey: process.env.apiKey },
+                    });
+
+                    return {
+                        ...recipe,
+                        summary: recipeInfo.data.summary.replace(/<\/?[^>]+(>|$)/g, ""), // Add summary to the recipe
+                        url: recipeInfo.data.spoonacularSourceUrl, // Add recipe URL
+                    };
+                } catch (error) {
+                    console.error(`Failed to fetch details for recipe ID ${recipe.id}:`, error);
+                    return { ...recipe, summary: 'Details not available', url: '#' };
+                }
+            })
+        );
+
+        res.render('reciplease', { recipes: recipesWithDetails, error: null });
     } catch (error) {
         console.error(error);
         res.render('reciplease', { error: 'Failed to fetch recipes. Please try again.', recipes: [] });

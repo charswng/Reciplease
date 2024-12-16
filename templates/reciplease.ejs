@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reciplease!</title>
-    <link rel="stylesheet" href="Recipes.css" />
+    <link rel="stylesheet" href="templates/recipes.css" />
   </head>
   <body>
 
@@ -18,7 +18,7 @@
         <form action="/reciplease" method="POST">
         <h1>What is your name?</h1>
           Name:
-          <input type="text" id="name" required />
+          <input type="text" name="name" required />
 
           <br>
           <label for="ingredients">Ingredients (comma-separated):</label><br />
@@ -39,7 +39,12 @@
           <% recipes.forEach(recipe => { %>
           <li>
             <h3><%= recipe.name %></h3>
-            <p><%= recipe.description %></p>
+            <img src="<%- recipe.image %>" alt="<%- recipe.name%>">
+            
+            <p><strong>Summary:</strong> <%= recipe.summary %></p>
+            <a href="<%= recipe.url %>" target="_blank">View Full Recipe</a>
+
+            
             <p>
               <strong>Ingredients:</strong> <%= recipe.ingredients.join(', ') %>
             </p>

@@ -29,12 +29,12 @@ app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 
 app.get('/', (req, res) => {
-    res.render('reciplease');
+    res.render('reciplease', { recipes: [], error: null });
 });
 
-app.post('/recipes', async (req, res) => {
+app.post('/reciplease', async (req, res) => {
 
-    formName = req.body.name; 
+    let formName = req.body.name; 
     insertUser({name : formName})
 
     const { ingredients } = req.body;
@@ -46,13 +46,12 @@ app.post('/recipes', async (req, res) => {
     const ingredientList = ingredients.split(',').map(ing => ing.trim()).join(','); // Format ingredients
 
     try {
-        // Fetch recipes from an external API (Spoonacular example)
-        const apiKey = 'ad41eb05b0cb419ea191d129023404ad';
+    
         const response = await axios.get(`https://api.spoonacular.com/recipes/findByIngredients`, {
             params: {
                 ingredients: ingredientList,
                 number: 5, // Limit results to 5 recipes
-                apiKey: apiKey
+                apiKey: process.env.apiKey
             }
         });
 

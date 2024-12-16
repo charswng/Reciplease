@@ -9,12 +9,12 @@
 <body>
 
     <h1>What is your name?</h1>
-    <form id="authForm" method="POST">
+    <form id="reciplease" method="POST">
             Name:
             <input type="text" id="name"  required>
         <input type="submit" id="name" value="Enter">
     </form>
-    
+
     <header>
         <h1>Reciplease</h1>
         <p>Enter your ingredients below to find recipes!</p>
@@ -22,7 +22,7 @@
 
     <main>
         <section>
-            <form action="/recipes" method="POST">
+            <form action="/reciplease" method="POST">
                 <label for="ingredients">Ingredients (comma-separated):</label><br>
                 <input type="text" id="ingredients" name="ingredients" placeholder="e.g., flour, sugar, eggs">
                 <button type="submit">Find Recipes</button>

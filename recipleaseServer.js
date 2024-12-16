@@ -35,8 +35,9 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     formName = req.body.name; 
-    insertUser(formName);
-})
+    insertUser({name : formName})
+    .then(res.render("reciplease"));
+});
 
 app.post('/recipes', async (req, res) => {
     const { ingredients } = req.body;
@@ -81,7 +82,7 @@ async function insertUser(name) {
         await client
             .db(dbAndCollection.db_name)
             .collection(dbAndCollection.collection)
-            .insertOne({ name: name });
+            .insertOne(name);
     } catch (error) {
         console.error(error);
     } finally {

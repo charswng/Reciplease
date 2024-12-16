@@ -4,61 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reciplease!</title>
-    <link rel="stylesheet" href="templates/recipes.css" />
+    <link rel="stylesheet" type="text/css" href="recipe.css" />
   </head>
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>Reciplease</h1>
+        <p>Find recipes depending on what ingredients you have on hand!</p>
+      </header>
 
-    <header>
-      <h1>Reciplease</h1>
-      <p>Enter your ingredients below to find recipes!</p>
-    </header>
+      <main>
+        <section id="sectionOne">
+          <form action="/reciplease" method="POST">
+            <div id="login" class="form-inline">
+              <h2>Login/Register</h2>
+              Name:
+              <input type="text" name="name" required />
+              <label for="ingredients"><h2 id="ingredientsTitle">Ingredients</h2></label><br><br>
+              <input
+                type="text"
+                id="ingredients"
+                name="ingredients"
+                placeholder="e.g., flour, sugar, eggs"
+                class="half-width"
+              />
+            </div>
+            <button type="submit">Find Recipes</button>
+          </form>
+        </section>
 
-    <main>
-      <section>
-        <form action="/reciplease" method="POST">
-        <h1>What is your name?</h1>
-          Name:
-          <input type="text" name="name" required />
-
-          <br>
-          <label for="ingredients">Ingredients (comma-separated):</label><br />
-          <input
-            type="text"
-            id="ingredients"
-            name="ingredients"
-            placeholder="e.g., flour, sugar, eggs"
-          />
-          <button type="submit">Find Recipes</button>
-        </form>
-      </section>
-
-      <section>
-        <h2>Recipes</h2>
-        <% if (recipes.length > 0) { %>
-        <ul>
-          <% recipes.forEach(recipe => { %>
-          <li>
-            <h3><%= recipe.name %></h3>
-            <img src="<%- recipe.image %>" alt="<%- recipe.name%>">
-            
-            <p><strong>Summary:</strong> <%= recipe.summary %></p>
-            <a href="<%= recipe.url %>" target="_blank">View Full Recipe</a>
-
-            
-            <p>
-              <strong>Ingredients:</strong> <%= recipe.ingredients.join(', ') %>
-            </p>
-          </li>
-          <% }); %>
-        </ul>
-        <% } else { %>
-        <p>No recipes found. Try different ingredients!</p>
-        <% } %>
-      </section>
-    </main>
-
-    <footer>
-      <p>Made with ❤️ for food lovers!</p>
-    </footer>
+        <section>
+          <% if (recipes.length > 0) { %>
+          <h1>Recipes</h1>
+          <ul>
+            <% recipes.forEach(recipe => { %>
+            <li>
+              <h3><%= recipe.name %></h3>
+              <img src="<%- recipe.image %>" alt="<%- recipe.name%>" />
+              <p><strong>Summary:</strong> <br><%= recipe.summary %></p>
+              <a href="<%= recipe.url %>" target="_blank">View Full Recipe</a>
+            </li>
+            <% }); %>
+          </ul>
+          <% } %>
+        </section>
+      </main>
+    </div>
   </body>
 </html>

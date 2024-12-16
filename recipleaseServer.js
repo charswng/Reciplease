@@ -1,4 +1,4 @@
-// Import necessary modules
+process.stdin.setEncoding("utf8");
 const fs = require('fs');
 const express = require('express');
 const bparser = require('body-parser');
@@ -6,6 +6,8 @@ const path = require('path');
 const axios = require('axios'); //For API(?)
 const http = require('http');
 const { MongoClient } = require('mongodb');
+const app = express();
+const PORT = 3000;
 
 process.stdin.setEncoding("UTF8");
 
@@ -18,15 +20,12 @@ const dbAndCollection = {db_name: process.env.MONGO_DB_NAME, collection: process
 const uri = process.env.MONGO_CONNECTION_STRING;
 const client = new MongoClient(uri);
 
-// Initialize Express application
-const app = express();
-const PORT = 3000;
-
 app.use(bparser.urlencoded({extended:false}));
 
-// Set EJS as the view engine
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
+
+app.use(express.static(__dirname + '/styles'));
 
 app.get('/', (req, res) => {
     res.render('reciplease', { recipes: [], error: null });
@@ -50,7 +49,7 @@ app.post('/reciplease', async (req, res) => {
         const response = await axios.get(`https://api.spoonacular.com/recipes/findByIngredients`, {
             params: {
                 ingredients: ingredientList,
-                number: 5,
+                number: 6,
                 apiKey: process.env.apiKey
             }
         });

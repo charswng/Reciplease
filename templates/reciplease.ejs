@@ -1,54 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reciplease!</title>
-    <link rel="stylesheet" href="Recipes.css">
-</head>
-<body>
-
-    <h1>What is your name?</h1>
-    <form id="reciplease" method="POST">
-            Name:
-            <input type="text" id="name"  required>
-        <input type="submit" id="name" value="Enter">
-    </form>
+    <link rel="stylesheet" href="Recipes.css" />
+  </head>
+  <body>
 
     <header>
-        <h1>Reciplease</h1>
-        <p>Enter your ingredients below to find recipes!</p>
+      <h1>Reciplease</h1>
+      <p>Enter your ingredients below to find recipes!</p>
     </header>
 
     <main>
-        <section>
-            <form action="/reciplease" method="POST">
-                <label for="ingredients">Ingredients (comma-separated):</label><br>
-                <input type="text" id="ingredients" name="ingredients" placeholder="e.g., flour, sugar, eggs">
-                <button type="submit">Find Recipes</button>
-            </form>
-        </section>
+      <section>
+        <form action="/reciplease" method="POST">
+        <h1>What is your name?</h1>
+          Name:
+          <input type="text" id="name" required />
 
-        <section>
-            <h2>Recipes</h2>
-            <% if (recipes.length > 0) { %>
-                <ul>
-                    <% recipes.forEach(recipe => { %>
-                        <li>
-                            <h3><%= recipe.name %></h3>
-                            <p><%= recipe.description %></p>
-                            <p><strong>Ingredients:</strong> <%= recipe.ingredients.join(', ') %></p>
-                        </li>
-                    <% }); %>
-                </ul>
-            <% } else { %>
-                <p>No recipes found. Try different ingredients!</p>
-            <% } %>
-        </section>
+          <br>
+          <label for="ingredients">Ingredients (comma-separated):</label><br />
+          <input
+            type="text"
+            id="ingredients"
+            name="ingredients"
+            placeholder="e.g., flour, sugar, eggs"
+          />
+          <button type="submit">Find Recipes</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Recipes</h2>
+        <% if (recipes.length > 0) { %>
+        <ul>
+          <% recipes.forEach(recipe => { %>
+          <li>
+            <h3><%= recipe.name %></h3>
+            <p><%= recipe.description %></p>
+            <p>
+              <strong>Ingredients:</strong> <%= recipe.ingredients.join(', ') %>
+            </p>
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p>No recipes found. Try different ingredients!</p>
+        <% } %>
+      </section>
     </main>
 
     <footer>
-        <p>Made with ❤️ for food lovers!</p>
+      <p>Made with ❤️ for food lovers!</p>
     </footer>
-</body>
+  </body>
 </html>

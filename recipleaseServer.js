@@ -50,10 +50,12 @@ app.post('/reciplease', async (req, res) => {
         const response = await axios.get(`https://api.spoonacular.com/recipes/findByIngredients`, {
             params: {
                 ingredients: ingredientList,
-                number: 5, // Limit results to 5 recipes
+                number: 5,
                 apiKey: process.env.apiKey
             }
         });
+
+        
 
         const recipes = response.data.map(recipe => ({
             name: recipe.title,

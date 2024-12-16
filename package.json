@@ -1,0 +1,23 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "main": "recipleaseServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "Submitted by: Charis Wang\r Group Members: Abigail Song, Charis Wang\r App Description: Allows users to find recipes with certain ingredients they want\r API Information: spoonacularAPI: https://spoonacular.com/food-api/docs#Search-Recipes-Complex \r Contact Email: charswng@umd.edu",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "git": "^0.1.5",
+    "http": "^0.0.1-security",
+    "mongodb": "^6.12.0",
+    "path": "^0.12.7"
+  }
+}
